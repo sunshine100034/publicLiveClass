@@ -2,84 +2,58 @@
 # """
 # pycharm
 # """
-# from selenium import webdriver
-# import unittest
-# import time
-#
-# class TestLogin(unittest.TestCase):
-#
-#     def setUp(self) -> None:
-#         self.driver = webdriver.Chrome()
-#         pass
-#
-#     def tearDown(self) -> None:
-#         self.driver.quit()
-#         pass
-#
-#     def testLogin(self):
-#         self.driver.get("https://www.ablesky.com/login.do?fromurl=https://www.ablesky.com/recommend")
-#         time.sleep(2)
-#
-#     def testLogin2(self):
-#         self.driver.get("https://www.ablesky.com/login.do?fromurl=https://www.ablesky.com/recommend")
-#         time.sleep(2)
-#
-#
-#
-# # if __name__ == "__main__":
-# unittest.main()
-#
+from selenium import webdriver
 import  ddt
 import unittest
+from selenium.common.exceptions import NoSuchElementException
+
+from LOG import LOG
+from LOG import saveScreenShot
 
 
-datas =[{"courseName": "课程名称",
-         "hostTeacherId": "5778083",
-         "lessonName": "课时标题",
-         "startHour": "19",
-         "startMin": "19",
-         "endHour": "22",
-         "endMin": "22",
-         "courseNum": "100"},
-        {"courseName": "课程名称2",
-         "hostTeacherId": "5778083",
-         "lessonName": "课时标题2",
-         "startHour": "19",
-         "startMin": "19",
-         "endHour": "22",
-         "endMin": "22",
-         "courseNum": "100"}]
 
-datas1 =({"courseName": "课程名称",
-         "hostTeacherId": "5778083",
-         "lessonName": "课时标题",
-         "startHour": "19",
-         "startMin": "19",
-         "endHour": "22",
-         "endMin": "22",
-         "courseNum": "100"},
-        {"courseName": "课程名称2",
-         "hostTeacherId": "5778083",
-         "lessonName": "课时标题2",
-         "startHour": "19",
-         "startMin": "19",
-         "endHour": "22",
-         "endMin": "22",
-         "courseNum": "100"})
+class TestLogin1(unittest.TestCase):
 
-data1=(1,2,3,4,5,6)
+    def __init__(self, driver):
+        self.driver = driver
+    # @classmethod
+    # def setUpClass(cls) -> None:
+    #     LOG(filename="test.log")
+    #     options = webdriver.ChromeOptions()
+    #     options.add_argument("--ignore-certificate-error")
+    #     options.add_argument("--ignore-ssl-errors")
+    #     caps = webdriver.DesiredCapabilities.CHROME.copy()
+    #     caps['acceptInsecureCerts'] = True
+    #     caps['acceptSslCerts'] = True
+    #     cls.driver = webdriver.Chrome(options=options, desired_capabilities=caps)
+    #     pass
+    #
+    # @classmethod
+    # def tearDownClass(cls) -> None:
+    #     cls.driver.quit()
+    #     pass
 
-@ddt.ddt
-class TEST(unittest.TestCase):
 
-    def setUp(self) -> None:
-        print("setup")
+    def Login(self, username, psw):
+        print(username, psw)
+        self.driver.get("https://www.ablesky.com/login.do?fromurl=https://www.ablesky.com/recommend")
+        self.driver.maximize_window()
+        # switch_ele = self.driver.find_element_by_class_name("login-switch-wrap")
+        try:
+            switch_ele = self.driver.find_element_by_class_name("login-switch")
+            switch_ele.click()
+            self.driver.find_element_by_id("J_loginUsername").send_keys(username)
+            self.driver.find_element_by_id("J_loginPassword").send_keys(psw)
+            self.driver.find_element_by_id("J_loginBtn").click()
+        except NoSuchElementException as e:
+            LOG("Error : not found {}".format(e))
+            saveScreenShot(self.driver)
+        except:
+            LOG("Error : unknown exception")
+            saveScreenShot(self.driver)
 
-    def tearDownClass(cls) -> None:
-        print("teardown")
-
-    @ddt.data(data1)
-    def testData1(self, data):
-        print(data)
-
-unittest.main()
+    # @ddt.file_data("login_data.json")
+    # @ddt.unpack
+    # def testALogin(self, **data):
+    #     print(data)
+    #     self.Login(data["username"], data["password"])

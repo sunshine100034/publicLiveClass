@@ -1,0 +1,56 @@
+[
+{
+	"courseName":"课程名称0426",
+	"hostTeacherId":"6088765",
+	"assistantId":"5778083",
+	"lesson":[
+		{
+		"lessonName":"课时标题4",
+		"date":"2021-4-26",
+		"startHour":"8",
+		"startMin":"07",
+		"endHour":"20",
+		"endMin":"00"
+		},
+		{
+		"lessonName":"课时标题5",
+		"date":"2021-4-27",
+		"startHour":"8",
+		"startMin":"07",
+		"endHour":"20",
+		"endMin":"00"
+		}
+	],
+	
+    "courseNum":"100",
+	"classmode":"0",
+	"iniNum":"10"
+},
+{
+	"courseName":"课程名称0426",
+	"hostTeacherId":"5778083",
+	"assistantId":"6088765",
+	"lesson":[
+		{
+		"lessonName":"课时标题4",
+		"date":"2021-4-26",
+		"startHour":"8",
+		"startMin":"07",
+		"endHour":"20",
+		"endMin":"00"
+		},
+		{
+		"lessonName":"课时标题5",
+		"date":"2021-4-27",
+		"startHour":"8",
+		"startMin":"07",
+		"endHour":"20",
+		"endMin":"00"
+		}
+	],
+    "courseNum":"100",
+	"classmode":"1",
+	"iniNum":"10"
+}
+
+]
